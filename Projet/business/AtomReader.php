@@ -1,8 +1,6 @@
 <?php
 
-include __DIR__ . '/IReader.php';
-include __DIR__ . '/../model/Feed.php';
-include __DIR__ . '/../model/Entry.php';
+
 
 class AtomReader implements IReader
 {
@@ -32,6 +30,9 @@ class AtomReader implements IReader
 		// si ils existent dans le flux
 		//
 		// ce tableau devrait être la seule chose à modifier dans cette classe si on veut ajouter des attributs à la classe Entry.
+		//
+		// NB: simpleXML echoue dans la récupération de deux childrens d'un élément si les balises portent le même nom, simpleXML n'associe pas les bonnes valeurs, du coup
+		// on ne peut récupérer qu'un des auteurs, tans pis pour les autres.
 
 		$this->propertyMap = array('id' => 'id',
 			"title" => "title",
@@ -46,29 +47,66 @@ class AtomReader implements IReader
 	private  function read_url($url)
 	{
 		$date = strtotime("20 mars 2015");
+
+
 		return $this->read_url_until_date($url, $date );
 	}
 
 	// on passe la date limite de modification - la derniere date de maj, ainsi que l'url du feed !!!
 	public function read_url_until_date( $url , $date)
 	{
-		$feed = new SimpleXMLElement($url,NULL,true);
+
+		$ch = curl_init();
+
+		// Configuration de l'URL et d'autres options
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		// accéder aux sites https, ça enlève de la sécurité, mais au moins on a les infos
+		// la solution propre nécéssite d'utiliser le certificat de son navigateur et comporte une partie à faire
+		// à la main.
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 
+		// Récupération de l'URL et affichage sur le naviguateur
+		$xml =  curl_exec($ch);
+
+		$feed = simplexml_load_string($xml);
+		//$feed = new SimpleXMLElement($url,NULL,true);
+
+		return $this->update($feed,$date, $url);
+
+
+	}
+
+	//affecte la valeur au champ key de la variable article
+	private  function setReadValue($reflector, $key, $article, $value)
+	{
+
+		if ( isset($this->propertyMap[$key])) {
+			$prop = $this->propertyMap[$key];
+			$property = $reflector->getProperty($prop);
+			$property->setValue($article, $value);
+
+		}
+		return $article;
+
+	}
+
+
+
+	public function read()
+	{
+		$this->read_url("http://feeds.betacie.com/viedemerde");
+	}
+
+
+	
+	public function update($feed, $date, $url)
+	{
 		$reflector = new ReflectionClass('Entry');
 
 		$result = array();
-
-
-		print "printing ... \n";
-
-		// atribut généraux - useless
-		foreach($feed as $key => $value) {
-
-			echo("[".$key ."] ".$value . "<br />");
-
-		}
-
 
 
 		// articles
@@ -81,10 +119,10 @@ class AtomReader implements IReader
 			//on génère un nouvel articles
 			$article = new Entry();
 			$article->alreadyRead = FALSE;
+			$article->feed = $url;
 
 			// cas généraux -> on a l'info directement sans sous balises
 			foreach($Entry as $key => $value) {
-				echo $key . " setting ...." ;
 
 
 				//test si la propriété est renseignée par l'article
@@ -108,34 +146,10 @@ class AtomReader implements IReader
 		}
 
 
-		echo "success";
 
 		return $result;
 
 	}
-
-	//affecte la valeur au champ key de la variable article
-	private  function setReadValue($reflector, $key, $article, $value)
-	{
-		$prop = $this->propertyMap[$key];
-		if ( $prop != '') {
-			$property = $reflector->getProperty($prop);
-			$property->setValue($article, $value);
-			echo $value . " ok" . "<br/>";
-		}
-		return $article;
-
-	}
-
-
-	public function read()
-	{
-		$this->read_url("http://feeds.betacie.com/viedemerde");
-	}
-
-
-	
-	public function update($feed){}
 	
 	
 	

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf>
+    <table>
+        <table_name>articles</table_name>
+        <schema_name>tp-oop</schema_name>
+        <phpClass>Entry</phpClass>
+        <phpClass_primarykey>id</phpClass_primarykey>
+        <mapping>
+            <map Class_field='id' DB_field='id' />
+            <map Class_field="feed" DB_field="feed" />
+            <map Class_field="title" DB_field="title" />
+            <map Class_field="link" DB_field="link" />
+            <map Class_field="publicationDate" DB_field="publicationDate" />
+            <map Class_field="updateDate" DB_field="updatedDate" />
+            <map Class_field="content" DB_field="content" />
+            <map Class_field="author" DB_field="author" />
+            <map Class_field="extra" DB_field="extra" />
+            <map Class_field="comment" DB_field="comment" />
+            <map Class_field="alreadyRead" DB_field="alreadyRead" />
+        </mapping>
+    </table>
+    <table>
+        <table_name>feeds</table_name>
+        <schema_name>tp-oop</schema_name>
+        <phpClass>Feed</phpClass>
+        <phpClass_primarykey>url</phpClass_primarykey>
+        <mapping>
+            <map Class_field='url' DB_field='url' />
+            <map Class_field="updateDate" DB_field="lastUpdate" />
+            <map Class_field="description" DB_field="description" />
+        </mapping>
+    </table>
+</conf>
