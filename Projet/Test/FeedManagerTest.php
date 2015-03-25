@@ -17,7 +17,6 @@ class FeedManagerTest extends PHPUnit_Framework_TestCase {
     public function testOneAndMultiInsert()
     {
 
-        // $ArticlesManager = new ArticlesManager();
         $ArticlesManager = new ArticlesManager("feeds");
         $ArticlesManager->clean();
 
@@ -79,7 +78,7 @@ class FeedManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testDelete()
     {
-        //$ArticlesManager = new ArticlesManager();
+
         $ArticlesManager = new ArticlesManager("feeds");
 
         $feeds = $ArticlesManager->getAllEntries();

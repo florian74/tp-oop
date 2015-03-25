@@ -8,6 +8,7 @@ interface IReader
 	// - url du feed
 	// - date de dernière mise à jour / null si on veux tout depuis le début
 	public function read_url_until_date( $url , $date);
-	
+
+	public function update($feed, $date, $url);
 	
 }

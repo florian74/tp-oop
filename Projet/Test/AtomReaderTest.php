@@ -114,7 +114,7 @@ XML;
         $this->assertNotEquals(0, count($articles));
 
         //https :
-        $articles = $AtomReader->read_url_until_date("http://linuxfr.org/news.atom",strtotime("20 mars 2015"));
+        $articles = $AtomReader->read_url_until_date("https://linuxfr.org/news.atom",strtotime("20 mars 2015"));
         $this->assertNotEquals(0, count($articles));
 
 

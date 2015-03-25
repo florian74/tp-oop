@@ -82,7 +82,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
         $ArticlesManager->insertEntries($articles);
 
         //https :
-        $articles = $AtomReader->read_url_until_date("http://linuxfr.org/news.atom",strtotime("20 mars 2015"));
+        $articles = $AtomReader->read_url_until_date("https://linuxfr.org/news.atom",strtotime("20 mars 2015"));
         $ArticlesManager->insertEntries($articles);
 
     }
@@ -131,7 +131,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
 
 
         $ArticlesManager->delete("feed", "http://feeds.betacie.com/viedemerde");
-        $ArticlesManager->delete("feed","http://linuxfr.org/news.atom");
+        $ArticlesManager->delete("feed", "https://linuxfr.org/news.atom");
         $articles = $ArticlesManager->getAllEntries();
         $this->assertEquals(0, count($articles));
 
@@ -171,14 +171,14 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($count, count($articles));
 
         //https :
-        $articles = $AtomReader->read_url_until_date("http://linuxfr.org/news.atom",strtotime("20 mars 2015"));
+        $articles = $AtomReader->read_url_until_date("https://linuxfr.org/news.atom",strtotime("20 mars 2015"));
         $ArticlesManager->insertEntries($articles);
         $count = $count + count($articles);
         $articles = $ArticlesManager->getAllEntries();
         $this->assertEquals($count, count($articles));
 
         $ArticlesManager->delete("feed","http://feeds.betacie.com/viedemerde");
-        $ArticlesManager->delete("feed","http://linuxfr.org/news.atom");
+        $ArticlesManager->delete("feed","https://linuxfr.org/news.atom");
         $articles = $ArticlesManager->getAllEntries();
         $this->assertNotEquals(0, count($articles));
 
@@ -216,6 +216,42 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($articles[0]->extra, "bonus");
 
 
+
+
+
+        $RSSReader = new RSSReader();
+        $AtomReader = new AtomReader();
+
+        $articles = $ArticlesManager->getAllEntries();
+        $count = count($articles);
+        //http :
+        $articles = $RSSReader->read_url_until_date("http://www.lemonde.fr/japon/rss_full.xml",strtotime("15 mars 2015"));
+        $ArticlesManager->insertEntries($articles);
+        $count = $count + count($articles);
+        $articles = $ArticlesManager->getAllEntries();
+        $this->assertEquals($count, count($articles));
+
+        //https :
+        $articles = $RSSReader->read_url_until_date("https://www.guildwars2.com/fr/feed/",strtotime("15 mars 2015"));
+        $ArticlesManager->insertEntries($articles);
+
+        $count = $count + count($articles);
+        $articles = $ArticlesManager->getAllEntries();
+        $this->assertEquals($count, count($articles));
+
+        //http :
+        $articles = $AtomReader->read_url_until_date("http://feeds.betacie.com/viedemerde",strtotime("20 mars 2015"));
+        $ArticlesManager->insertEntries($articles);
+        $count = $count + count($articles);
+        $articles = $ArticlesManager->getAllEntries();
+        $this->assertEquals($count, count($articles));
+
+        //https :
+        $articles = $AtomReader->read_url_until_date("https://linuxfr.org/news.atom",strtotime("20 mars 2015"));
+        $ArticlesManager->insertEntries($articles);
+        $count = $count + count($articles);
+        $articles = $ArticlesManager->getAllEntries();
+        $this->assertEquals($count, count($articles));
 
 
     }

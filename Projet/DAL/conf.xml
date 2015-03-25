@@ -4,7 +4,7 @@
         <table_name>articles</table_name>
         <schema_name>tp-oop</schema_name>
         <phpClass>Entry</phpClass>
-        <phpClass_primarykey>id</phpClass_primarykey>
+        <phpClass_primarykey>link</phpClass_primarykey>
         <mapping>
             <map Class_field='id' DB_field='id' />
             <map Class_field="feed" DB_field="feed" />
