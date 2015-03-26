@@ -30,6 +30,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
         $article = new Entry();
         $article->alreadyRead = 0;
         $article->id = 0;
+        $article->link = 0;
         $article->author="test";
         $article->extra=0;
         $article->publicationDate= date("Y-m-d H:i:s");
@@ -61,6 +62,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
             $article = new Entry();
             $article->alreadyRead = 0;
             $article->id = $i+1;
+            $article->link = $i+1;
             $article->author = "test";
             $article->extra = 0;
             $article->publicationDate = date("Y-m-d H:i:s");
@@ -101,6 +103,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
         $article = new Entry();
         $article->alreadyRead = 0;
         $article->id = 0;
+        $article->link = 0;
         $article->author="test";
         $article->extra=0;
         $article->publicationDate= date("Y-m-d H:i:s");
@@ -117,6 +120,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
             $article = new Entry();
             $article->alreadyRead = 0;
             $article->id = $i+1;
+            $article->link = $i+1;
             $article->author = "test";
             $article->extra = 0;
             $article->publicationDate = date("Y-m-d H:i:s");
@@ -199,6 +203,7 @@ class ArticlesManagerTest extends PHPUnit_Framework_TestCase {
         $article = new Entry();
         $article->alreadyRead = 0;
         $article->id = 0;
+        $article->link = 0;
         $article->author="test";
         $article->extra=0;
         $article->publicationDate= date("Y-m-d H:i:s");

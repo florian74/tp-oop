@@ -32,6 +32,39 @@ class Connection {
         {
             echo  "<br>" . $e->getMessage();
         }
+
+        try {
+            $stmt = $this->connection->prepare("CREATE TABLE  IF NOT EXISTS `articles` (
+  `feed` varchar(200) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `comment` varchar(200) DEFAULT NULL,
+  `content` varchar(20000) DEFAULT NULL,
+  `author` varchar(45) DEFAULT NULL,
+  `extra` varchar(200) DEFAULT NULL,
+  `publicationDate` timestamp NULL DEFAULT NULL,
+  `updatedDate` timestamp NULL DEFAULT NULL,
+  `link` varchar(200) NOT NULL,
+  `alreadyRead` binary(1) DEFAULT '0',
+  PRIMARY KEY (`link`),
+  UNIQUE KEY `link_UNIQUE` (`link`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+            $stmt ->execute();
+        }
+        catch (PDOException $e)
+        {}
+
+        try {
+            $stmt = $this->connection->prepare("CREATE TABLE  IF NOT EXISTS `feeds` (
+  `url` varchar(200) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `lastUpdate` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+            $stmt ->execute();
+        }
+        catch (PDOException $e)
+        {}
+
     }
 
     public static function getConnection() {

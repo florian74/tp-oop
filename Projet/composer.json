@@ -1,6 +1,8 @@
 {
     "require": {
-        "slim/slim": "~2.5"
+        "slim/slim": "~2.5",
+        "twig/twig": "~1.0"
+
     },
     "autoload": {
     }
