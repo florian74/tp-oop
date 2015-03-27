@@ -104,6 +104,30 @@ class ArticlesManager {
         $stmt->execute();
     }
 
+
+    public function getEntriesByProperty($property, $value)
+    {
+        $stmt = Connection::getConnection()->prepare("SELECT * FROM " . $this->TableName . "WHERE ´" . $this->propertyMap[$property] . "´ = ? ;");
+        $stmt->bindParam(1, $value);
+        $stmt->execute();
+
+         $articles = array();
+        while ($row = $stmt->fetch()) {
+
+            $article = new Entry();
+
+
+            foreach ($this->reflector->getProperties() as $property ) {
+                if ( isset ($this->propertyMap[$property->getName()]))
+                    $property->setValue($article,$row[$this->propertyMap[ $property->getName() ] ]);
+            }
+
+            $articles[] = $article;
+        }
+
+        return $articles;
+    }
+
     public function getAllEntries() {
 
         $stmt = Connection::getConnection()->prepare("SELECT * FROM " . $this->TableName);

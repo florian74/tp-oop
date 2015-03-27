@@ -51,6 +51,16 @@ class FeedUpdater {
 
     }
 
+    public function getAllArticle()
+    {
+        return $this->articlesDB->getAllEntries();
+    }
+
+    public function getSpecificEntries($param, $value)
+    {
+        return $this->articlesDB->getEntriesByProperty($param,$value);
+    }
+
     public function deleteFeed( $feed)
     {
         $this->articlesDB->Delete("feed" , $feed->url);

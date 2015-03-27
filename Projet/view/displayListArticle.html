@@ -1,0 +1,54 @@
+<div id="displayList">
+
+
+    <div class="list-group">
+    {% for item in articles %}
+
+        <a href="#" class="list-group-item" onclick="return myajax( '{{ item.title }}', '{{ item.url }}' );" >  {{ item.title }}  </a>
+
+
+        <script>
+            function myajax(item, url)
+            {
+
+
+                var ul = $("[id= \"tabs\"]");
+
+
+                // TODO - inserer sans les doublons
+
+                //insertion
+                var li = $("<li role='presentation' id='" + item +  "'><a href='#" + item + "'><p>" + item + "</p></a></li>").appendTo(ul);
+
+
+
+
+                //faire le div
+                var onglets = $("[id= \"onglets\"]");
+
+                var div  = $("<div id='" + item + "'>coucou</div>").appendTo(onglets);
+
+                //requete
+                $.get("/read/url='" + url +"'", function(data, status){
+                    //insérer dans le div
+                    $(data).appendTo(div);
+
+                });
+
+
+
+
+                return true;
+
+
+
+            }
+        </script>
+            {% endfor %}
+    </div>
+
+
+
+
+
+</div>

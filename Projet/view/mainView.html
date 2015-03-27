@@ -2,27 +2,27 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
     <title></title>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#onglets").tabs();
+        });
+    </script>
 </head>
 <body>
-<div class="list-group">
-    <a href="#" class="list-group-item active">
-        Cras justo odio
-    </a>
-    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-    <a href="#" class="list-group-item">Morbi leo risus</a>
-    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-    <a href="#" class="list-group-item">Vestibulum at eros</a>
-</div>
 
-<ul class="nav nav-tabs nav-justified">
-    Consult
-</ul>
-<ul class="nav nav-pills nav-justified">
-    Subscribe
-</ul>
-    {% include "navigation.html" %}
+
+
+
+{% include "navigation.html" %}
+
+{% include "onglet.html" %}
+
+{% include "contenuOnglet.html" %}
 
 
 </body>
