@@ -17,6 +17,7 @@
         <map Class_field="extra" DB_field="extra" />
         <map Class_field="comment" DB_field="comment" />
         <map Class_field="alreadyRead" DB_field="alreadyRead" />
+        <map Class_field="number" DB_field="number" />
     </mapping>
 </table>
     <table>
@@ -28,6 +29,7 @@
             <map Class_field='url' DB_field='url' />
             <map Class_field="updateDate" DB_field="lastUpdate" />
             <map Class_field="description" DB_field="description" />
+            <map Class_field="number" DB_field="number" />
         </mapping>
     </table>
 </conf>

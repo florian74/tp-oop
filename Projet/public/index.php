@@ -24,14 +24,14 @@ Twig_Autoloader::register();
 
 $app = new \Slim\Slim();
 
-$app->get('/read', function ( $url) {
+$app->get('/read/:nb', function ( $nb) {
 
 	$loader = new Twig_Loader_Filesystem( __DIR__ . '/../view');
 	$twig = new Twig_Environment($loader);
 
-	$article = FeedUpdater::getInstance()->getSpecificEntries("feed", $url);
+	$article = FeedUpdater::getInstance()->getSpecificEntries("number", $nb);
 
-	return  $twig->render('article.html', array("article" => $article ));
+	echo $twig->render('article.html', array("article" => $article[0] ));
 });
 
 $app->get('/hello', function () { echo 'hello'; });

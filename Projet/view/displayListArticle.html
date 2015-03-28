@@ -4,11 +4,11 @@
     <div class="list-group">
     {% for item in articles %}
 
-        <a href="#" class="list-group-item" onclick="return myajax( '{{ item.title }}', '{{ item.url }}' );" >  {{ item.title }}  </a>
+        <a href="#" class="list-group-item" onclick="return myajax( '{{ item.title }}', '{{ item.link }}', '{{ item.number }}' );" >  {{ item.title }}  </a>
 
 
         <script>
-            function myajax(item, url)
+            function myajax(item, url, number)
             {
 
 
@@ -18,22 +18,27 @@
                 // TODO - inserer sans les doublons
 
                 //insertion
-                var li = $("<li role='presentation' id='" + item +  "'><a href='#" + item + "'><p>" + item + "</p></a></li>").appendTo(ul);
+                var li = $("<li role='presentation'><a href='#" + "a" + number + "' aria-controls='profile' role='tab' data-toggle='tab'><p>" + item + "</p></a><a href='#' class='remove'>x</a></li>").appendTo(ul);
 
-
+            //<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
 
 
                 //faire le div
-                var onglets = $("[id= \"onglets\"]");
+                var onglets = $("[id= \"tab_content\"]");
 
-                var div  = $("<div id='" + item + "'>coucou</div>").appendTo(onglets);
+                var div  = $("<div id='" +  "a" + number  + "' role='tabpanel' class='tab-pane'></div>").appendTo(onglets);
 
                 //requete
-                $.get("/read/url='" + url +"'", function(data, status){
+               $.get("/read/" + number +"'", function(data, status){
                     //insérer dans le div
-                    $(data).appendTo(div);
+                    $("" + data).appendTo(div);
 
-                });
+
+               });
+
+
+
+
 
 
 

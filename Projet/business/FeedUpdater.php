@@ -61,6 +61,15 @@ class FeedUpdater {
         return $this->articlesDB->getEntriesByProperty($param,$value);
     }
 
+    public function getEntryFromNumber($value)
+    {
+        $db = new ArticlesManager("feeds");
+        var_dump($db->propertyMap);
+        $feed = $db->getEntriesByProperty("number", $value);
+
+        return $this->articlesDB->getEntriesByProperty("feed",$feed[0]->url);
+    }
+
     public function deleteFeed( $feed)
     {
         $this->articlesDB->Delete("feed" , $feed->url);

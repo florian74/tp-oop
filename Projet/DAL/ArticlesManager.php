@@ -107,7 +107,7 @@ class ArticlesManager {
 
     public function getEntriesByProperty($property, $value)
     {
-        $stmt = Connection::getConnection()->prepare("SELECT * FROM " . $this->TableName . "WHERE ´" . $this->propertyMap[$property] . "´ = ? ;");
+        $stmt = Connection::getConnection()->prepare("SELECT * FROM " . $this->TableName . " WHERE `" . $this->propertyMap[$property] . "` = ?;");
         $stmt->bindParam(1, $value);
         $stmt->execute();
 

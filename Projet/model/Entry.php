@@ -13,6 +13,7 @@ class Entry
 	public $extra;
 	public $alreadyRead = 0;
 	public $feed;
+	public $number;
 
 	public function Entry()
 	{
