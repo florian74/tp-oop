@@ -46,12 +46,11 @@ $app->get('/app',function() {
 
 	echo $twig->render('mainView.html', array("articles" => $FeedUpdater->getAllArticle() ));
 
-	//$aff = new AffichageArticles();
-	//$aff->listingArticle(" ");
+
 
 });
 
-$app->put('/update/:url/:description', function($url , $description) {
+$app->post('/update/:url/:description', function($url , $description) {
 	$FeedUpdater = FeedUpdater::getInstance();
 
 	$FeedUpdater->addFeed($url, $description);

@@ -35,7 +35,8 @@ class Connection {
 
         try {
             $stmt = $this->connection->prepare("CREATE TABLE  IF NOT EXISTS `articles` (
-  `feed` varchar(200) DEFAULT NULL,
+    `feed` varchar(200) DEFAULT NULL,
+  `id` varchar(200) DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `content` varchar(20000) DEFAULT NULL,
@@ -45,8 +46,10 @@ class Connection {
   `updatedDate` timestamp NULL DEFAULT NULL,
   `link` varchar(200) NOT NULL,
   `alreadyRead` binary(1) DEFAULT '0',
+  `number` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`link`),
-  UNIQUE KEY `link_UNIQUE` (`link`)
+  UNIQUE KEY `link_UNIQUE` (`link`),
+  UNIQUE KEY `number_UNIQUE` (`number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
             $stmt ->execute();
         }
@@ -58,8 +61,10 @@ class Connection {
   `url` varchar(200) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `lastUpdate` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`url`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+  `number` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`url`),
+  UNIQUE KEY `number_UNIQUE` (`number`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;");
             $stmt ->execute();
         }
         catch (PDOException $e)

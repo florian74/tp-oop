@@ -1,18 +1,22 @@
 <div id="contenu">
 <!-- contenu de l'onglet subscribe -->
 
+
     <form>
-        <input id="url" type="string"/>
-        <input id="description" type="string" />
+        <input id="url" type="text"/>
+        <input id="description" type="text" />
 
         <button id="submit">Abonnement</button>
     </form>
 
-
     <script >
         $("#submit").click( function(Event) {
             Event.preventDefault();
-            $.post("/update/'" + $("#width").val() + "'/'" +  $("#height").val()+"'" );
+            var url = document.getElementById("url").value;
+            var text = document.getElementById("description").value;
+            url = url.replace('/','--',true);
+            url = url.replace(':','__');
+            $.post("/update/'" + url + "'/'" +  text +"'" );
         })
 
     </script>
