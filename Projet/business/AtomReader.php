@@ -118,7 +118,7 @@ class AtomReader implements IReader
 
 			//on génère un nouvel articles
 			$article = new Entry();
-			$article->alreadyRead = FALSE;
+			$article->alreadyRead = 0;
 			$article->feed = $url;
 
 			// cas généraux -> on a l'info directement sans sous balises

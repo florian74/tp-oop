@@ -45,7 +45,7 @@ class Connection {
   `publicationDate` timestamp NULL DEFAULT NULL,
   `updatedDate` timestamp NULL DEFAULT NULL,
   `link` varchar(200) NOT NULL,
-  `alreadyRead` binary(1) DEFAULT '0',
+  `alreadyRead` int(1) DEFAULT '0',
   `number` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`link`),
   UNIQUE KEY `link_UNIQUE` (`link`),

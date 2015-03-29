@@ -3,22 +3,104 @@
 
 
     <form>
-        <input id="url" type="text"/>
-        <input id="description" type="text" />
+        <div>
+            <p> url </p>
+            <input id="url" type="text"></input>
+            <br/>
+        </div>
+        <div>
+            <p> catégorie </p>
+            <input id="description" type="text" />
+            <br/>
+        </div>
+        <button href="" id="submit">Abonnement</button>
 
-        <button id="submit">Abonnement</button>
     </form>
 
+    <div id="list">
+        <br/>
+        <div class="list-group" id="feeds">
+        {% for item in feeds %}
+
+        <a href="#" class="list-group-item" id='f{{ item.number }}' >  {{ item.url }} <span href='#'  class='badge' onclick="return removeFeed('{{ item.number }}')" >X</span><span href='#'  class='badge' >  {{ item.description }} </span> </a>
+
+        {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+    <script>
+
+        function removeFeed(number) {
+
+            $.ajax({
+                url: 'deleteFeed/' + number,
+                type: 'DELETE',
+                success: function(result) {
+                    $.ajax({
+                        url: 'app',
+                        type: 'GET',
+                        success: function(result) {
+                            var tmp =  document.getElementById("consult");
+                            $("#consult").empty();
+
+                            $(result).appendTo(tmp);
+                        }
+
+
+                    });
+                }
+            });
+
+
+
+            var url = document.getElementById("f" + number).remove();
+
+
+
+            return true;
+        }
+    </script>
     <script >
         $("#submit").click( function(Event) {
             Event.preventDefault();
             var url = document.getElementById("url").value;
             var text = document.getElementById("description").value;
-            url = url.replace('/','--',true);
-            url = url.replace(':','__');
-            $.post("/update/'" + url + "'/'" +  text +"'" );
+            var url2 = url;
+            url2 = url2.replace('/','----','g');
+            url2 = url2.replace(':','____','g');
+            url2 = url2.replace('.','~~~~','g');
+            $.post("/update/" + url2 + "/" +  text , function(result) {
+                var tmp =  document.getElementById("feeds");
+
+                if (document.getElementById("f" + result) != null )
+                {
+
+                }
+                else {
+                    $("<a href='#' class='list-group-item' id='f" + result + "' >" + url + "<span href='#'  class='badge' onclick=\"return removeFeed('" + result + "')\" >X</span><span href='#'  class='badge' >" + text + " </span> </a>").appendTo(tmp);
+                    $.ajax({
+                        url: 'app',
+                        type: 'GET',
+                        success: function(result) {
+                            var tmp =  document.getElementById("consult");
+                            $("#consult").empty();
+
+                            $(result).appendTo(tmp);
+                        }
+
+
+                    });
+                }
+            });
+
+
+
+
+
         })
 
     </script>
 
-</div>

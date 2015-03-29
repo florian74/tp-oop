@@ -11,7 +11,7 @@ class Entry
 	public $content;
 	public $comment;
 	public $extra;
-	public $alreadyRead = 0;
+	public $alreadyRead;
 	public $feed;
 	public $number;
 
@@ -19,6 +19,7 @@ class Entry
 	{
 		$this->publicationDate= date("Y-m-d H:i:s");
 		$this->updateDate= date("Y-m-d H:i:s");
+		$this->alreadyRead = 0;
 	}
 	//retourne les dates de manière à ce qu'elles soient dans un format exploitable par la BDD
 	public function __get($property)

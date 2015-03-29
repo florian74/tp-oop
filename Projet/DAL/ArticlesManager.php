@@ -23,30 +23,6 @@ class ArticlesManager {
 
     public $reflector;
 
-   /* public function ArticlesManager() {
-       date_default_timezone_set("Zulu");
-
-       $this->propertyMap = array
-        ('id' => 'id',
-            "title" => "title",
-            "link" => "link",
-            "publicationDate" => "publicationDate",
-            "updateDate" => "updatedDate",
-            "content" => "content",
-            "author" => "author",
-            "extra" => "extra",
-            "comment" => "comment",
-            "alreadyRead" => "alreadyRead",
-            "feed" => "feed"
-        );
-        $this->NbProperties = count($this->propertyMap);
-        $this->TableName = "articles";
-        $this->SchemaName = "tp-oop";
-        $this->PhpClass = "Entry";
-        $this->primaryKey = "id";
-        $this->reflector = new ReflectionClass($this->PhpClass);
-        var_dump($this->propertyMap);
-    }*/
 
     public function  ArticlesManager($table_name)
     {
@@ -276,7 +252,7 @@ class ArticlesManager {
             }
             catch (PDOException $e)
             {
-                echo $e->getMessage();
+               // echo $e->getMessage();
             }
     }
 
@@ -293,7 +269,7 @@ class ArticlesManager {
             try {
                 $this->Delete($primaryKey, $Article->{$primaryKey});
             } catch (PDOException $e) {
-                echo $e->getMessage();
+             //   echo $e->getMessage();
             }
         }
     }

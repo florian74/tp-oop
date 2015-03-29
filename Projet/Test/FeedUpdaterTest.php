@@ -56,9 +56,10 @@ class FeedUpdaterTest extends PHPUnit_Framework_TestCase {
         $updater->resetDB();
 
         $updater->addFeed("https://www.guildwars2.com/fr/feed/","jeu video");
+        echo "\n";
         $updater->addFeed("http://www.lemonde.fr/japon/rss_full.xml","actualite");
-        $updater->addFeed("http://feeds.betacie.com/viedemerde","humour");
-        $updater->addFeed("https://linuxfr.org/news.atom","veille");
+      //  $updater->addFeed("http://feeds.betacie.com/viedemerde","humour");
+      //  $updater->addFeed("https://linuxfr.org/news.atom","veille");
 
 
         $feedmanager= new ArticlesManager("feeds");
@@ -70,10 +71,11 @@ class FeedUpdaterTest extends PHPUnit_Framework_TestCase {
 
         $updater->updateAllFeed();
 
-        $feeds = $feedmanager->getAllEntries();
-
+       $feeds = $feedmanager->getAllEntries();
 
         $this->assertGreaterThan( 8, ( strtotime($feeds[0]->updateDate) - strtotime($date) ));
+
+        $updater->resetDB();
 
 
 

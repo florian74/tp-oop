@@ -2,7 +2,7 @@
 
     <script>
 
-        function myajax(item, url, number)
+        function myajax(item, url, number, lu)
         {
 
 
@@ -14,10 +14,8 @@
                 return;
 
             //insertion
+
             var li = $("<li role='presentation' id='p" + number + "'><a href='#" + "a" + number + "' aria-controls='profile' role='tab' data-toggle='tab'>" + item + "\t\t\t" + "<span href='#'  class='badge' onclick=\"return removeOnglet('" + number + "')\" >x</span></a></li>").appendTo(ul);
-
-            //<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-
 
             //faire le div
             var onglets = $("[id= \"tab_content\"]");
@@ -29,7 +27,13 @@
                 //insérer dans le div
                 $(data.toString()).appendTo(div);
 
+                //enlever le gras
+                var contenu = $("#l" + number).find("b").html();
+                $("#l" + number).remove("b");
+                $("#l" + number).html(contenu);
 
+                //marqué comme lu en BD
+                $.post("/updateArticleLu/" + number , function(result) {});
             });
 
             return true;
@@ -49,9 +53,14 @@
     <div class="list-group">
     {% for item in articles %}
 
-        <a href="#" class="list-group-item" onclick="return myajax( '{{ item.title }}', '{{ item.link }}', '{{ item.number }}' );" >  {{ item.title }}  </a>
+        {% if item.alreadyRead == 1 %}
+        <a href="#" class="list-group-item" id="l{{ item.number }}" onclick="return myajax( '{{ item.title }}', '{{ item.link }}', '{{ item.number }}' , '{{ item.alreadyRead }}' );" >  {{ item.title }}  </a>
 
+        {% else %}
 
+        <a href="#" class="list-group-item" id="l{{ item.number }}" onclick="return myajax( '{{ item.title }}', '{{ item.link }}', '{{ item.number }}' , '{{ item.alreadyRead }}' );" > <b> {{ item.title }} </b> </a>
+
+        {% endif %}
 
 
             {% endfor %}

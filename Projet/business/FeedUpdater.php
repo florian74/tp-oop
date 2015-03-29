@@ -56,9 +56,19 @@ class FeedUpdater {
         return $this->articlesDB->getAllEntries();
     }
 
-    public function getSpecificEntries($param, $value)
+    public function getAllFeed()
+    {
+        return $this->feedsDB->getAllEntries();
+    }
+
+    public function getSpecificArticleEntries($param, $value)
     {
         return $this->articlesDB->getEntriesByProperty($param,$value);
+    }
+
+    public function getSpecificFeedEntries($param, $value)
+    {
+        return $this->feedsDB->getEntriesByProperty($param,$value);
     }
 
     public function getEntryFromNumber($value)
@@ -76,25 +86,52 @@ class FeedUpdater {
         $this->feedsDB->DeleteEntry($feed);
     }
 
+    public function deleteFeedByNumber( $number)
+    {
+        $feed = $this->feedsDB->getEntriesByProperty("number",$number);
+        $this->articlesDB->Delete("feed" ,  $feed[0]->url);
+        $this->feedsDB->DeleteEntry($feed[0]);
+    }
+
     public function addFeed( $url , $description )
     {
 
         $feed = new Feed();
         $feed->url = $url;
         $feed->description = $description;
-        $feed->updateDate = date("Y-m-d H:i:s",strtotime("-2 months"));
+        $feed->updateDate = date("Y-m-d H:i:s");
 
-        $this->feedsDB->insertEntry($feed);
+        $feeds = $this->feedsDB->getAllEntries();
 
-        //recupération du reader
-        $reader = ReaderManager::getInstance()->getReader($feed->url);
+        $continue = true;
+        foreach($feeds as $ref)
+        {
+            if ($feed->url == $ref->url) {
+                $continue = false;
+                break;
+            }
+        }
 
-        //updates
-        $articles = $reader->read_url_until_date($feed->url, $feed->updateDate);
+        if ($continue === true) {
+            $this->feedsDB->insertEntry($feed);
 
-        $this->articlesDB->insertEntries($articles);
+            //recupération du reader
+            $reader = ReaderManager::getInstance()->getReader($feed->url);
 
 
+            //updates
+            $articles = $reader->read_url_until_date($feed->url, date("Y-m-d H:i:s", strtotime("-2 months")));
+
+
+            $this->articlesDB->insertEntries($articles);
+        }
+
+
+    }
+
+    public function setAlreadyRead($article)
+    {
+        $this->articlesDB->mergeEntry($article);
     }
 
     public function resetDB()

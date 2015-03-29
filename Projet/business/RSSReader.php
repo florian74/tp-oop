@@ -101,7 +101,7 @@ class RSSReader implements  IReader{
 
                 //on génère un nouvel article
                 $article = new Entry();
-                $article->alreadyRead = FALSE;
+                $article->alreadyRead = 0;
                 $article->feed = $url;
 
                 foreach($item->children() as $key => $value) {
