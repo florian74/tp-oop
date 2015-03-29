@@ -6,7 +6,7 @@ include __DIR__ . '/../business/FeedUpdater.php';
 include __DIR__ . '/../business/ReaderManager.php';
 include __DIR__ . '/../model/Feed.php';
 include __DIR__ . '/../model/Entry.php';
-include __DIR__ . '/../DAL/connection.php';
+include __DIR__ . '/../DAL/Connection.php';
 include __DIR__ . '/../DAL/ArticlesManager.php';
 
 class FeedUpdaterTest extends PHPUnit_Framework_TestCase {

@@ -11,7 +11,7 @@ include __DIR__ . '/../model/Entry.php';
 include __DIR__ . '/../business/RSSReader.php';
 include __DIR__ . '/../business/FeedUpdater.php';
 include __DIR__ . '/../business/ReaderManager.php';
-include __DIR__ . '/../DAL/connection.php';
+include __DIR__ . '/../DAL/Connection.php';
 include __DIR__ . '/../DAL/ArticlesManager.php';
 require __DIR__ . '/../vendor/twig/twig/lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
@@ -81,6 +81,17 @@ $app->post('/update/:url/:description', function($url , $description) {
 	$feeds = $FeedUpdater->getSpecificFeedEntries("url", $url);
 
 	echo $feeds[0]->number;
+
+});
+
+$app->get('/updateApp',function() {
+	$loader = new Twig_Loader_Filesystem( __DIR__ . '/../view');
+	$twig = new Twig_Environment($loader);
+
+	$FeedUpdater = FeedUpdater::getInstance();
+	$FeedUpdater->updateAllFeed();
+
+	echo $twig->render('mainView.html', array("articles" => $FeedUpdater->getAllArticle() ));
 
 });
 

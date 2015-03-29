@@ -17,6 +17,9 @@
 
     </form>
 
+    <form>
+        <button href="" id="refresh">Refresh Feed</button>
+    </form>
     <div id="list">
         <br/>
         <div class="list-group" id="feeds">
@@ -31,6 +34,25 @@
 
 </div>
 
+    <script>
+        $("#refresh").click( function(Event)
+        {
+            Event.preventDefault();
+            $.ajax({
+                url: 'updateApp',
+                type: 'GET',
+                success: function(result) {
+                    var tmp =  document.getElementById("consult");
+                    $("#consult").empty();
+
+                    $(result).appendTo(tmp);
+                }
+
+
+            });
+        });
+
+    </script>
     <script>
 
         function removeFeed(number) {
