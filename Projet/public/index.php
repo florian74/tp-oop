@@ -36,7 +36,7 @@ $app->get('/read/:nb', function ( $nb) {
 
 $app->get('/hello', function () { echo 'hello'; });
 
-$app->get('/app/',function() {
+$app->get('/app',function() {
 
 	$loader = new Twig_Loader_Filesystem( __DIR__ . '/../view');
 	$twig = new Twig_Environment($loader);
@@ -51,5 +51,21 @@ $app->get('/app/',function() {
 
 });
 
+$app->put('/update/:url/:description', function($url , $description) {
+	$FeedUpdater = FeedUpdater::getInstance();
+
+	$FeedUpdater->addFeed($url, $description);
+
+});
+
+$app->get('/nav',function(){
+	$loader = new Twig_Loader_Filesystem( __DIR__ . '/../view');
+	$twig = new Twig_Environment($loader);
+
+	$FeedUpdater = FeedUpdater::getInstance();
+
+
+	echo $twig->render('navigation.html', array("articles" => $FeedUpdater->getAllArticle() ));
+});
 $app->run();
 

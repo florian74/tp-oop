@@ -1,5 +1,20 @@
 <div id="contenu">
+<!-- contenu de l'onglet subscribe -->
+
+    <form>
+        <input id="url" type="string"/>
+        <input id="description" type="string" />
+
+        <button id="submit">Abonnement</button>
+    </form>
 
 
+    <script >
+        $("#submit").click( function(Event) {
+            Event.preventDefault();
+            $.post("/update/'" + $("#width").val() + "'/'" +  $("#height").val()+"'" );
+        })
+
+    </script>
 
 </div>

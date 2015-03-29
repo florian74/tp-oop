@@ -1,10 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.js"></script>
+    <title></title>
+
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $("#tabs2").tabs();
+        });
+    </script>
+    <!--  <script type="text/javascript">
+          $(document).ready(function() {
+              $("#onglets").tabs();
+          });
+      </script>-->
+</head>
+<body>
+
 
 
 <div id="navigation">
 
-    <ul class="nav nav-pills nav-justified">
-        <li role="presentation" class="active"><a href="#">Subscribed</a></li>
-        <li role="presentation"><a href="#">Consult</a></li>
+    <ul class="nav nav-tabs nav-justified" id="tabs2">
+
+        <li role="presentation" class="active"><a href="#consult" aria-controls="consult" role="tab" data-toggle="tab">Consult</a></li>
+        <li role="presentation" ><a href="#subscribe" aria-controls="subscribe" role="tab" data-toggle="tab">Subscribe</a></li>
+
+
+
     </ul>
 
+    <div class="tab-content" id="tab_content2">
+        <div role="tabpanel" class="tab-pane active" id="consult">
+
+            {% include "mainView.html" %}
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="subscribe">
+            {% include "contenuOnglet.html" %}
+        </div>
+
+    </div>
+
+
+
 </div>
+
+
+
+
+</body>
+</html>

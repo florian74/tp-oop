@@ -6,8 +6,8 @@
 </head>
 <body>
 <p>{{ article.title }} </p>
-{{ article.content }}
-<br>
+<div><p content="text/html">{{ article.content | raw }}</p></div>
+<br/>
 
 <p>by {{ article.author }}</p>
 </body>
